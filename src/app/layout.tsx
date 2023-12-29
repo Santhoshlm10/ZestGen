@@ -6,7 +6,7 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Zestgen",
+  title: "Zestgen - A dynamic tool for generating and downloading random values as CSV files. Ideal for testing and prototyping.",
   description:
     "A dynamic tool for generating and downloading random values as CSV files. Ideal for testing and prototyping.",
 };
