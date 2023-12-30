@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
 
-
 export default function Home() {
   return (
     <main>
@@ -18,16 +17,14 @@ export default function Home() {
               height={55}
               width={55}
             />
-            <span className="text-2xl font-bold">Zestgen</span>
+            <span className="text-2xl font-extrabold">Zestgen</span>
           </div>
           <div className="flex items-center gap-5">
             <Button className="text-white bg-violet-500">About</Button>
             <Button className="text-white bg-violet-500">
-              <span className="">
-              <FaGithub/>
-              <span>Github</span>
-              </span>
-              </Button>
+              <FaGithub />
+              &nbsp; Github
+            </Button>
           </div>
         </div>
       </header>
@@ -39,21 +36,22 @@ export default function Home() {
             </span>
           </p>
           <div>
-            <p>
+            <p className="text-center p-3 text-xl">
               Explore endless creativity at ZestGen virtual playground! Dive
               into a world of randomized values, perfect for developers craving
-              unpredictability or data enthusiasts seeking diversity. Join us to
-              sculpt, experiment, and bring your datasets to life! 🚀✨{" "}
+              unpredictability or data enthusiasts seeking diversity. Sculpt, experiment, and bring datasets to life! 🚀✨{" "}
             </p>
           </div>
           <br />
-          <div>
+          <div  style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
             <Link href="/playground">
               <Button
                 style={{
-                  backgroundColor: "#664b8c",
+                  backgroundColor: "#8764b8",
                   color: "white",
                   margin: "10px",
+                  fontSize:'20px',
+                  padding:'25px',
                   fontWeight: "normal",
                 }}
               >
