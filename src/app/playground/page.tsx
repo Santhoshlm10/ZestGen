@@ -1,35 +1,16 @@
 "use client";
 
 import React, { SyntheticEvent, useState } from "react";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-  Input,
-  Button,
-} from "@chakra-ui/react";
-import {
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-} from "@chakra-ui/react";
 import { faker } from "@faker-js/faker";
 import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
 import { CSVLink } from "react-csv";
 import HeaderComponent from "../components/header/Header";
+import { Button } from "antd";
 
 function PlaygroundPage() {
-  const [count, setCount] = useState<number>(0);
-  const [data, setData] = useState<any>([]);
+
+  const [data,setData] = useState([]);
 
 
   const downloadCSVFile = ({ data, fileName, fileType }: any) => {

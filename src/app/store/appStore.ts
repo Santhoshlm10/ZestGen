@@ -9,8 +9,16 @@ class AppStore {
         this.data[key] = value;
     }
 
-    getStoreData(key: string) {
-        return this.data;
+    getStoreData(key?: string | any) {
+        if(key){
+            return this.data
+        }else{
+            return this.data[key];
+        }
+    }
+
+    clearStoreData(){
+        this.data = {}
     }
 }
 

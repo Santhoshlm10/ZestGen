@@ -1,9 +1,9 @@
 import React from "react";
-import { Button } from "@chakra-ui/react";
 import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
 import { GoVersions } from "react-icons/go";
 import Link from "next/link";
+import { Button } from "antd";
 
 
 function HeaderComponent() {
@@ -24,15 +24,19 @@ function HeaderComponent() {
                 </Link>
                 <div className="flex items-center gap-5">
                     <Link href={"/releases"}>
-                        <Button className="text-white bg-violet-500">
-                            <GoVersions />
-                            &nbsp;
-                            Releases</Button>
+                        <Button
+                            type="default"
+                            icon={<GoVersions />}
+                        >
+                            Releases
+                        </Button>
                     </Link>
                     <Link href={"https://github.com/Santhoshlm10/ZestGen"} rel="noopener noreferrer" target="_blank">
-                        <Button className="text-white bg-violet-500">
-                            <FaGithub />
-                            &nbsp; Github
+                        <Button
+                            type="default"
+                            icon={<FaGithub />}
+                        >
+                            Github
                         </Button>
                     </Link>
                 </div>

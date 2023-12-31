@@ -1,8 +1,6 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import type { Metadata } from "next";
 import "./globals.css";
-import { Providers } from "./providers";
-
 
 
 export const metadata: Metadata = {
@@ -28,7 +26,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-zinc-50">
-        <Providers>{children}</Providers>
+       {children}
       </body>
     </html>
   );
