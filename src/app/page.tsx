@@ -17,7 +17,7 @@ import HeaderComponent from "./components/header/Header";
 export default function Home() {
   return (
     <main>
-      <HeaderComponent/>
+      <HeaderComponent />
       <div>
         <div className="p-20">
           <p className="text-center mb-4 text-5xl font-bold">
@@ -27,9 +27,8 @@ export default function Home() {
           </p>
           <div>
             <p className="text-center p-3 text-xl">
-              Explore endless creativity at ZestGen virtual playground! Dive
-              into a world of randomized values, perfect for developers craving
-              unpredictability or data enthusiasts seeking diversity. Sculpt, experiment, and bring datasets to life! 🚀✨{" "}
+
+              Discover limitless creativity at {"Zestgen's"} virtual playground! Ideal for developers and data enthusiasts, explore randomized values to sculpt and bring datasets to life! 🚀✨
             </p>
           </div>
           <br />
