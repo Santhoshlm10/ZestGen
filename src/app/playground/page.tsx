@@ -22,12 +22,16 @@ import {
   NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { faker } from "@faker-js/faker";
+import Image from "next/image";
+import { FaGithub } from "react-icons/fa";
+import { CSVLink } from "react-csv";
 
 function PlaygroundPage() {
   const [count, setCount] = useState<number>(0);
+  const [data,setData] = useState<any>([]);
 
 
-  const downloadCSVFile = ({ data, fileName, fileType }:any) => {
+  const downloadCSVFile = ({ data, fileName, fileType }: any) => {
     // Create a blob with the data we want to download as a file
     const blob = new Blob([data], { type: fileType })
     // Create an anchor element and dispatch a click event on it
@@ -44,7 +48,7 @@ function PlaygroundPage() {
     a.remove()
   }
 
-  const exportToJson = (data:any) => {
+  const exportToJson = (data: any) => {
     downloadCSVFile({
       data: JSON.stringify(data),
       fileName: 'users.csv',
@@ -52,59 +56,39 @@ function PlaygroundPage() {
     })
   }
 
-  const downloadFile = async () => {
-
-    let temp = []
-    for (let index = 0; index < count; index++) {
-      console.log(temp);
-      temp.push({name:faker.animal.cat()})
-    }
-    exportToJson(temp)
+  const handleDownload = async () => {
+    let res = await fetch('/api/generate', {
+      method:'POST',
+      headers:{
+        'Content-type': 'application/json'
+      },
+      body:JSON.stringify({})
+    })
+    let res1 = await res.json()
+    setData(res1.data)
   }
   return (
     <div>
-      <NumberInput>
-        <NumberInputField
-          value={count}
-          onChange={(e:any) => setCount(parseInt(e.target.value))}
-        />
-      </NumberInput>
-      <Button onClick={downloadFile}>Download</Button>
-      {/* <TableContainer>
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>
-            <Tr>
-              <Td>feet</Td>
-              <Td>centimetres (cm)</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
-          </Tbody>
-          <Tfoot>
-            <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Tfoot>
-        </Table>
-      </TableContainer> */}
+      <div>
+        <p>Welome to </p>
+        <p>Zestgen Playground</p>
+      </div>
+      <div>
+        <p>Click on Add Colum button below to get started</p>
+      </div>
+
+
+      <div>
+      </div>
+
+      <div>
+        <Button onClick={handleDownload}>Hello World</Button>
+      </div>
+
+      <CSVLink data={data}>
+  Download me
+</CSVLink>;
+
     </div>
   );
 }
