@@ -25,6 +25,7 @@ import { faker } from "@faker-js/faker";
 import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
 import { CSVLink } from "react-csv";
+import HeaderComponent from "../components/header/Header";
 
 function PlaygroundPage() {
   const [count, setCount] = useState<number>(0);
@@ -69,6 +70,7 @@ function PlaygroundPage() {
   }
   return (
     <div>
+            <HeaderComponent/>
       <div>
         <p>Welome to </p>
         <p>Zestgen Playground</p>

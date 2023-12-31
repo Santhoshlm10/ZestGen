@@ -12,33 +12,12 @@ import { LuFileJson } from "react-icons/lu";
 import { SiMysql } from "react-icons/si";
 import { TbFileTypeXml } from "react-icons/tb";
 import { CiServer } from "react-icons/ci";
+import HeaderComponent from "./components/header/Header";
 
 export default function Home() {
   return (
     <main>
-      <header>
-        <div className="p-5 flex items-center justify-between">
-          <div className="flex items-center gap-1">
-            <Image
-              src={require("./../app/assets/applogo.png")}
-              alt=""
-              height={55}
-              width={55}
-            />
-            <span className="text-2xl font-extrabold">Zestgen</span>
-          </div>
-          <div className="flex items-center gap-5">
-            <Button className="text-white bg-violet-500">
-            <GoVersions />
-              &nbsp;
-              Releases</Button>
-            <Button className="text-white bg-violet-500">
-              <FaGithub />
-              &nbsp; Github
-            </Button>
-          </div>
-        </div>
-      </header>
+      <HeaderComponent/>
       <div>
         <div className="p-20">
           <p className="text-center mb-4 text-5xl font-bold">
