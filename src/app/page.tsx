@@ -27,7 +27,6 @@ export default function Home() {
           </p>
           <div>
             <p className="text-center p-3 text-xl">
-
               Discover limitless creativity at {"Zestgen's"} virtual playground! Ideal for developers and data enthusiasts, explore randomized values to sculpt and bring datasets to life! 🚀✨
             </p>
           </div>
@@ -48,10 +47,10 @@ export default function Home() {
               </Button>
             </Link>
           </div>
-          <p className="text-center mt-8">Supported Formats</p>
+          <p className="text-center mt-6">Supported Formats</p>
         </div>
       </div>
-      <div className="pl-14 pr-14">
+      <div className="pl-14 pr-14 mb-10">
         <div className="grid gap-10 grid-cols-3">
           <div>
             <Card>

@@ -29,7 +29,7 @@ import HeaderComponent from "../components/header/Header";
 
 function PlaygroundPage() {
   const [count, setCount] = useState<number>(0);
-  const [data,setData] = useState<any>([]);
+  const [data, setData] = useState<any>([]);
 
 
   const downloadCSVFile = ({ data, fileName, fileType }: any) => {
@@ -59,18 +59,18 @@ function PlaygroundPage() {
 
   const handleDownload = async () => {
     let res = await fetch('/api/generate', {
-      method:'POST',
-      headers:{
+      method: 'POST',
+      headers: {
         'Content-type': 'application/json'
       },
-      body:JSON.stringify({})
+      body: JSON.stringify({})
     })
     let res1 = await res.json()
     setData(res1.data)
   }
   return (
     <div>
-            <HeaderComponent/>
+      <HeaderComponent />
       <div>
         <p>Welome to </p>
         <p>Zestgen Playground</p>
@@ -88,8 +88,8 @@ function PlaygroundPage() {
       </div>
 
       <CSVLink data={data}>
-  Download me
-</CSVLink>;
+        Download me
+      </CSVLink>;
 
     </div>
   );
