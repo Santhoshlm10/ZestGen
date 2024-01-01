@@ -3,19 +3,17 @@ import { faker } from "@faker-js/faker";
 import { NextResponse } from "next/server";
 
 export async function POST(req: any, res: any) {
-  const requestData = await req.json();
-  const USERS =  faker.helpers.multiple(createRandomUser, {
-    count: 10000,
+  let requestBody = await req.json();
+  const USERS =  faker.helpers.multiple(prepareGenObject, {
+    count: requestBody["count"],
   });
-  return NextResponse.json({ message: "post done", data: USERS, code: 200 });
+  return NextResponse.json({ message: "post done", data: requestBody, code: 200 });
 }
 
-function createRandomUser() {
+function prepareGenObject() {
   return {
-    firstName: valueReducer('FAKER_PERSON_FIRSTNAME'),
-    lastName: valueReducer('FAKER_PERSON_LASTNAME'),
-    fullName: valueReducer('FAKER_PERSON_FULLNAME'),
-    jobArea: valueReducer('FAKER_PERSON_JOBAREA')
+    firstName: valueReducer('faker.person.firstName'),
+    lastName: valueReducer('faker.person.lastName'),
   };
 }
 

@@ -1,6 +1,10 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import type { Metadata } from "next";
 import "./globals.css";
+import 'antd/lib/style/index';
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+
+
 
 
 export const metadata: Metadata = {
@@ -26,7 +30,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-zinc-50">
-       {children}
+        <AntdRegistry>{children}</AntdRegistry>
       </body>
     </html>
   );

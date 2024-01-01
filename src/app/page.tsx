@@ -14,6 +14,7 @@ import { SiAntdesign } from "react-icons/si";
 import { SiTailwindcss } from "react-icons/si";
 import { SiFoodpanda } from "react-icons/si";
 import { Button, Card } from "antd";
+import { IoIosAdd } from "react-icons/io";
 
 export default function Home() {
   return (
@@ -36,7 +37,7 @@ export default function Home() {
             <Link href="/playground">
               <Button
                 type="primary"
-                className="text-lg h-14 w-48 bg-violet-400 hover:bg-violet-600"
+                style={{backgroundColor:'#8764b8',fontSize:'17px'}}
               >
                 Visit Playground
               </Button>
@@ -49,15 +50,17 @@ export default function Home() {
                 <SiNextdotjs />
                 <p>Next JS</p>
               </Link>
+                <IoIosAdd className="ml-4"/>
               <Link href={"https://ant.design/"} target="_blank" className="flex justify-center gap-1 items-center ml-4">
                 <SiAntdesign />
                 <p>Ant Design</p>
               </Link>
+              <IoIosAdd className="ml-4"/>
               <Link href={"https://tailwindcss.com/"} target="_blank" className="flex justify-center gap-1 items-center ml-4">
                 <SiTailwindcss />
                 <p>Tailwind CSS</p>
               </Link>
-              &nbsp;&nbsp;
+              <IoIosAdd className="ml-4"/>
               <Link href={"https://fakerjs.dev/"} target="_blank" className="flex justify-center gap-1 items-center ml-4">
                 <SiFoodpanda />
                 <p>FakerJS</p>

@@ -1,4 +1,4 @@
-export const categoryOptions = () => {
+export const moduleOptions = () => {
     return [
         {
             value: 'person',
