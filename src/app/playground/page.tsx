@@ -168,12 +168,11 @@ function PlaygroundPage() {
       });
     } else {
       setIsGenerating(true);
-      let obj = columnsData.map((item:any) => {
-        let k:any  = {}
-        k[item.columnName] = "framer" + "." + item["moduleName"] +"."+item["submoduleName"]
-        return k;
+      let k:any  = {}
+      columnsData.map((item:any) => {
+        k[item.columnName] = "faker" + "." + item["moduleName"] +"."+item["submoduleName"]
       })
-      let payloadObj = {data:obj,count}
+      let payloadObj = {data:k,count}
       postPayloadData(payloadObj)
     }
   }

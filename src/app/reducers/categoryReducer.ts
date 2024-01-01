@@ -1,11 +1,12 @@
 import { faker } from "@faker-js/faker";
 
 const valueReducer = (type: string) => {
+
   switch (type) {
     //person module
     case "faker.person.bio":
       return faker.person.bio();
-    case "faker.person.firstname":
+    case "faker.person.firstName":
       return faker.person.firstName();
     case "faker.person.fullName":
       return faker.person.fullName();
