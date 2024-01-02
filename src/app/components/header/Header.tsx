@@ -27,7 +27,6 @@ function HeaderComponent() {
                         <Button
                             type="default"
                             icon={<GoVersions />}
-                            style={{backgroundColor:'white',color:'black'}}
                         >
                             Releases
                         </Button>
@@ -36,7 +35,6 @@ function HeaderComponent() {
                         <Button
                             type="default"
                             icon={<FaGithub />}
-                            style={{backgroundColor:'white',color:'black'}}
                         >
                             Github
                         </Button>

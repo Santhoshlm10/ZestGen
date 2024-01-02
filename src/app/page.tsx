@@ -106,7 +106,7 @@ export default function Home() {
       </div>
       <div className="mt-10 w-auto h-26 bg-gray-200">
         <p className="text-center p-4 text-lg">Unleash randomness, export possibilities<span className="text-xl">🪐</span></p>
-        <p className="text-center p-1 text-sm">Made with ❤️ from Bengaluru, India</p>
+        <p className="text-center text-sm">Made with ❤️ from Bengaluru, India</p>
       </div>
     </main>
   );
