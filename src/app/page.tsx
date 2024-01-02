@@ -5,7 +5,7 @@ import Link from "next/link";
 import { RiFileExcel2Line } from "react-icons/ri";
 import { BsFiletypeCsv } from "react-icons/bs";
 import { LuFileJson } from "react-icons/lu";
-import { SiMysql } from "react-icons/si";
+import { GrMysql } from "react-icons/gr";
 import { TbFileTypeXml } from "react-icons/tb";
 import { CiServer } from "react-icons/ci";
 import HeaderComponent from "./components/header/Header";
@@ -27,7 +27,7 @@ export default function Home() {
               The Dynamic Data Playground for Creative Minds
             </span>
           </p>
-          <div>
+          <div style={{width:'80%',margin:'0 auto'}}>
             <p className="text-center p-3 text-xl">
               Discover limitless creativity at {"Zestgen's"} virtual playground! Ideal for developers and data enthusiasts, explore randomized values to sculpt and bring datasets to life! 🚀✨
             </p>
@@ -37,7 +37,7 @@ export default function Home() {
             <Link href="/playground">
               <Button
                 type="primary"
-                style={{backgroundColor:'#8764b8',fontSize:'17px'}}
+                style={{backgroundColor:'#8764b8',fontSize:'17px',height:'50px',width:'200px'}}
               >
                 Visit Playground
               </Button>
@@ -69,7 +69,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="pl-14 pr-14 mb-10">
+      <div className="pl-14 pr-14 mb-10 flex justify-center">
         <div className="grid gap-10 grid-cols-3">
           <div>
 
@@ -88,7 +88,7 @@ export default function Home() {
             </Card>
           </div>
           <div>
-            <Card title={<span className="flex gap-2 items-center"><SiMysql />SQL</span>} bordered={false} style={{ width: 350 }}>
+            <Card title={<span className="flex gap-2 items-center"><GrMysql />SQL</span>} bordered={false} style={{ width: 350 }}>
               <p className="text-sm">Save random values directly as SQL statements, facilitating easy integration with relational databases. This option allows users to insert the generated data into a database or use it for testing SQL queries.</p>
             </Card>
           </div>
@@ -99,13 +99,14 @@ export default function Home() {
           </div>
           <div>
             <Card title={<span className="flex gap-2 items-center"><CiServer />HTTP</span>} bordered={false} style={{ width: 350 }}>
-              <p className="text-sm">Obtain random values as an HTTP response, allowing seamless integration with web applications. Users can make API requests to your website and receive the generated data in real-time, enabling dynamic and interactive applications.</p>
+              <p className="text-sm">Obtain random values as an HTTP response, allowing seamless integration with web applications. Users can make API requests to your website and receive the generated data in real-time, enabling dynamic applications.</p>
             </Card>
           </div>
         </div>
       </div>
-      <div className="mt-10 w-auto h-16 bg-gray-200">
-        <p className="text-center p-4">Unleash randomness, export possibilities<span className="text-xl">🪐</span></p>
+      <div className="mt-10 w-auto h-26 bg-gray-200">
+        <p className="text-center p-4 text-lg">Unleash randomness, export possibilities<span className="text-xl">🪐</span></p>
+        <p className="text-center p-1 text-sm">Made with ❤️ from Bengaluru, India</p>
       </div>
     </main>
   );
