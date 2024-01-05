@@ -5,7 +5,7 @@ const personSubmoduleList = [
     label: "Bio",
   },
   {
-    value: "firstname",
+    value: "firstName",
     label: "First Name",
   },
   {

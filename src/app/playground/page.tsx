@@ -1,19 +1,15 @@
 "use client";
 
-import React, { SyntheticEvent, useCallback, useMemo, useRef, useState } from "react";
-import { faker } from "@faker-js/faker";
-import Image from "next/image";
-import { FaGithub } from "react-icons/fa";
-import { CSVLink } from "react-csv";
+import React, { useState } from "react";
 import HeaderComponent from "../components/header/Header";
 import type { ColumnsType } from 'antd/es/table';
-import { Button, Checkbox, Form, Input, Modal, Select, Space, Table, message } from 'antd';
+import { Button, Checkbox, Form, Dropdown, Modal, Select, Space, Table, message, Input, MenuProps } from 'antd';
 import { moduleOptions } from "../options/Module";
 import { getSubmoduleByModule } from "../options/SubModule";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { IoIosAdd } from "react-icons/io";
-import { MdGeneratingTokens } from "react-icons/md";
+
 
 const { Search } = Input;
 
@@ -33,7 +29,7 @@ function PlaygroundPage() {
   const [selectedModule, setSelectedModule] = useState<string>("");
 
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const [count, setCount] = useState<number>(0);
+  const [count, setCount] = useState<any>(0);
   console.log("dataCount", count)
 
   //selected column for edit
@@ -68,7 +64,7 @@ function PlaygroundPage() {
     })
   }
 
-  const postPayloadData = async (data:any) => {
+  const postPayloadData = async (data: any) => {
     let res = await fetch('/api/generate', {
       method: 'POST',
       headers: {
@@ -76,8 +72,9 @@ function PlaygroundPage() {
       },
       body: JSON.stringify(data)
     })
-    let res1 = await res.json()
+    let genRes = await res.json()
     setIsGenerating(false);
+    return genRes
     // setData(res1.data)
   }
 
@@ -160,7 +157,7 @@ function PlaygroundPage() {
   const filterSubModule = (input: string, option?: { label: string; value: string }) =>
     (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
-  const startGenerating = () => {
+  const startGenerating = async () => {
     if (count <= 0) {
       messageApi.open({
         type: 'error',
@@ -168,14 +165,78 @@ function PlaygroundPage() {
       });
     } else {
       setIsGenerating(true);
-      let k:any  = {}
-      columnsData.map((item:any) => {
-        k[item.columnName] = "faker" + "." + item["moduleName"] +"."+item["submoduleName"]
+      let k: any = {}
+      columnsData.map((item: any) => {
+        k[item.columnName] = "faker" + "." + item["moduleName"] + "." + item["submoduleName"]
       })
-      let payloadObj = {data:k,count}
-      postPayloadData(payloadObj)
+      let payloadObj = { data: k, count }
+      return await postPayloadData(payloadObj)
     }
   }
+
+  const items = [
+    {
+      key: 'csv',
+      label: 'Save as CSV',
+    },
+    {
+      key: 'xlsx',
+      label: 'Save as XLSX',
+    },
+    {
+      key: 'json',
+      label: 'Save as JSON',
+    }
+  ];
+
+  const downloadAsCSV = (data: any) => {
+    const columns = Object.keys(data.data[0]);
+    const sanitizeValue = (value: any) => {
+      if (typeof value === 'string' && value.includes(',')) {
+        return `"${value}"`;
+      }
+      return value;
+    };
+    const csvContent =
+      'data:text/csv;charset=utf-8,' +
+      columns.map(sanitizeValue).join(',') +
+      '\n' +
+      data.data.map((row: any) => columns.map(col => sanitizeValue(row[col])).join(',')).join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'download.csv');
+    document.body.appendChild(link);
+    link.click();
+  }
+
+  const downloadAsExcel = (data: any) => {
+
+  }
+
+  const downloadAsJSON = (data: any) => {
+    const jsonContent = JSON.stringify(data.data, null, 2);
+    const blob = new Blob([jsonContent], { type: 'application/json' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'download.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  const onMenuClick: MenuProps['onClick'] = async (e: any) => {
+    let sg = await startGenerating();
+    if(sg.success){
+      if (e.key == "csv") {
+        downloadAsCSV(sg);
+      } else if (e.key == "xlsx") {
+        downloadAsExcel(sg)
+      } else if (e.key == "json") {
+        downloadAsJSON(sg)
+      }
+    }
+  };
   return (
     <div>
       {contextHolder}
@@ -184,9 +245,7 @@ function PlaygroundPage() {
         <center>
           <p className="text-xl">Welome to </p>
           <p className="text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r to-violet-800 from-sky-400">Zestgen Playground</p>
-
-          <p className="text-lg m-10">Click on the Add Column button below to get Started.</p>
-
+          <p className="text-sm m-10">Click on the Add Column button below to get Started.Then Choose Actions at bottom right to download generated data.</p>
         </center>
       </div>
       <div className="pl-20 pr-20">
@@ -215,26 +274,27 @@ function PlaygroundPage() {
         <div>
           {
             columnsData.length != 0 &&
-            <div>
-              <Input
-                placeholder="Count" style={{ width: '200px' }}
-                maxLength={5}
-                onKeyPress={(event) => {
-                  if (!/[0-9]/.test(event.key)) {
+            <div className="flex items-center gap-1">
+              <div>
+                <Input
+                  placeholder="Count" style={{ width: '120px' }}
+                  maxLength={5}
+                  prefix="Count: "
+                  onKeyPress={(event) => {
+                    if (!/[0-9]/.test(event.key)) {
                       event.preventDefault();
-                  }
-              }}
-                inputMode="numeric"
-                onChange={(ev: any) => {
-                  setCount(parseInt(ev.target.value))
-                }}
-                value={count}
-                suffix={<Button
-                  type="primary"
-                  onClick={startGenerating}
-                  style={{ backgroundColor: '#8764b8' }}
-                  loading={isGenerating}
-                >Generate</Button>} />
+                    }
+                  }}
+                  inputMode="numeric"
+                  onChange={(ev: any) => {
+                    setCount(isNaN(parseInt(ev.target.value)) ? null : parseInt(ev.target.value))
+                  }}
+                  value={count}
+                />
+              </div>
+              <div>
+                <Dropdown.Button loading={isGenerating} menu={{ items, onClick: onMenuClick }}>Actions</Dropdown.Button>
+              </div>
             </div>
           }
         </div>
