@@ -16,7 +16,8 @@
     "react": "^18",
     "react-csv": "^2.2.2",
     "react-dom": "^18",
-    "react-icons": "^4.12.0"
+    "react-icons": "^4.12.0",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "@types/node": "^20",

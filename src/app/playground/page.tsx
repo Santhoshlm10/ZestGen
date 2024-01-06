@@ -2,18 +2,12 @@
 
 import React, { useState } from "react";
 import HeaderComponent from "../components/header/Header";
-import type { ColumnsType } from 'antd/es/table';
-import { Button, Checkbox, Form, Dropdown, Modal, Select, Space, Table, message, Input, MenuProps } from 'antd';
+import { Button, Form, Dropdown, Modal, Select, Space, Table, message, Input, MenuProps, Pagination } from 'antd';
 import { moduleOptions } from "../options/Module";
 import { getSubmoduleByModule } from "../options/SubModule";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
-import { IoIosAdd } from "react-icons/io";
-
-
-const { Search } = Input;
-
-
+import { json2xml } from "xml-js";
 
 interface IColumnProps {
   key: number;
@@ -21,29 +15,34 @@ interface IColumnProps {
   moduleName: string;
   subModuleName: string;
 }
+interface IPreviewData {
+  modal: boolean;
+  data: any
+}
 function PlaygroundPage() {
 
   const [columnsData, setColumnsData] = useState<IColumnProps[]>([]);
-  console.log("columnsData", columnsData)
   const [isACMOpen, setIsACMOpen] = useState<boolean>(false);
   const [selectedModule, setSelectedModule] = useState<string>("");
 
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [count, setCount] = useState<any>(0);
-  console.log("dataCount", count)
+  const [preViewModalOpen, setPreviewModalOpen] = useState<IPreviewData>({
+    data: [],
+    modal: false
+  });
 
   //selected column for edit
   const [selectedColumnEdit, setSelectedColumnEdit] = useState<any>({});
+  const [currentPage, setCurrentPage] = useState(1);
+
 
   const [messageApi, contextHolder] = message.useMessage();
 
   const [form] = Form.useForm();
 
   const downloadCSVFile = ({ data, fileName, fileType }: any) => {
-    // Create a blob with the data we want to download as a file
     const blob = new Blob([data], { type: fileType })
-    // Create an anchor element and dispatch a click event on it
-    // to trigger a download
     const a = document.createElement('a')
     a.download = fileName
     a.href = window.URL.createObjectURL(blob)
@@ -54,14 +53,6 @@ function PlaygroundPage() {
     })
     a.dispatchEvent(clickEvt)
     a.remove()
-  }
-
-  const exportToJson = (data: any) => {
-    downloadCSVFile({
-      data: JSON.stringify(data),
-      fileName: 'users.csv',
-      fileType: 'text/csv',
-    })
   }
 
   const postPayloadData = async (data: any) => {
@@ -75,7 +66,6 @@ function PlaygroundPage() {
     let genRes = await res.json()
     setIsGenerating(false);
     return genRes
-    // setData(res1.data)
   }
 
   const handleDeleteColumn = (item: any) => {
@@ -176,6 +166,10 @@ function PlaygroundPage() {
 
   const items = [
     {
+      key: 'preview',
+      label: 'Show Preview',
+    },
+    {
       key: 'csv',
       label: 'Save as CSV',
     },
@@ -186,6 +180,10 @@ function PlaygroundPage() {
     {
       key: 'json',
       label: 'Save as JSON',
+    },
+    {
+      key: 'xml',
+      label: 'Save as XML',
     }
   ];
 
@@ -214,6 +212,18 @@ function PlaygroundPage() {
 
   }
 
+  const downloadAsXML = (data: any) => {
+    const json = JSON.stringify(data.data);
+    const xml = json2xml(json, { compact: true, spaces: 4 });
+    const blob = new Blob([xml], { type: 'application/xml' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'download.xml';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   const downloadAsJSON = (data: any) => {
     const jsonContent = JSON.stringify(data.data, null, 2);
     const blob = new Blob([jsonContent], { type: 'application/json' });
@@ -227,16 +237,30 @@ function PlaygroundPage() {
 
   const onMenuClick: MenuProps['onClick'] = async (e: any) => {
     let sg = await startGenerating();
-    if(sg.success){
+    console.log("SGData", sg)
+    if (sg.success) {
       if (e.key == "csv") {
         downloadAsCSV(sg);
       } else if (e.key == "xlsx") {
         downloadAsExcel(sg)
       } else if (e.key == "json") {
         downloadAsJSON(sg)
+      } else if (e.key == "xml") {
+        downloadAsXML(sg)
+      } else if (e.key == 'preview') {
+        setPreviewModalOpen({
+          modal: true,
+          data: sg.data
+        })
       }
     }
   };
+
+  const onPageChange = (page: any) => {
+    setCurrentPage(page);
+  };
+
+
   return (
     <div>
       {contextHolder}
@@ -321,7 +345,7 @@ function PlaygroundPage() {
             name="columnName"
             rules={[{ required: true, message: 'Column name is required!' }]}
           >
-            <Input />
+            <Input placeholder="Enter column name" />
           </Form.Item>
           <Form.Item
             label="Module Name"
@@ -366,6 +390,51 @@ function PlaygroundPage() {
           </Space>
         </Form>
       </Modal>
+      {
+        preViewModalOpen.modal &&
+
+        <Modal
+          title="Data Preview"
+          footer={null}
+          style={{ minWidth: '80%' }}
+          open={preViewModalOpen.modal}
+          onOk={() => {
+            setCurrentPage(1)
+            setPreviewModalOpen((c) => ({
+              ...c,
+              modal: false
+            }))
+          }}
+          onCancel={() => {
+            setCurrentPage(1)
+            setPreviewModalOpen((c) => ({
+              ...c,
+              modal: false
+            }))
+          }}
+        >
+          <Table
+            pagination={{
+              current: currentPage,
+              total: count,
+              pageSize: 5,
+              showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+              onChange: onPageChange,
+              showSizeChanger: false
+            }}
+            scroll={{x:true}}
+            style={{minWidth:'100%'}}
+            dataSource={preViewModalOpen.data}
+            columns={Object.keys(preViewModalOpen.data[0]).map((item, j) => {
+              return {
+                title: item,
+                dataIndex: item,
+                key: j
+              }
+            })} />
+        </Modal>
+      }
+
     </div>
   );
 }
