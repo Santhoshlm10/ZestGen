@@ -67,6 +67,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
+
         </div>
       </div>
       <div className="pl-14 pr-14 mb-10 flex justify-center">
