@@ -31,20 +31,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-zinc-50">
-        <ConfigProvider
-          theme={{
-            token: {
-              // Seed Token
-              colorPrimary: '#00b96b',
-              borderRadius: 2,
-
-              // Alias Token
-              colorBgContainer: '#f6ffed',
-            },
-          }}
-        >
           <AntdRegistry>{children}</AntdRegistry>
-        </ConfigProvider>
       </body>
     </html>
   );
