@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import 'antd/lib/style/index';
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import { ConfigProvider } from "antd";
-import theme from "./theme/themeConfig";
 
 
 
@@ -33,9 +31,7 @@ export default function RootLayout({
       </head>
       <body className="bg-zinc-50">
         <AntdRegistry>
-          <ConfigProvider theme={theme}>
-            {children}
-          </ConfigProvider>
+          {children}
         </AntdRegistry>
       </body>
     </html>
