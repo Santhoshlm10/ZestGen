@@ -7,6 +7,9 @@ function ReleasesPage() {
       <div>
         <HeaderComponent />
       </div>
+      <div className="pl-20 pr-20">
+        <h1>Releases</h1>
+      </div>
     </div>
   )
 }

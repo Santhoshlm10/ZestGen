@@ -184,6 +184,10 @@ function PlaygroundPage() {
     {
       key: 'xml',
       label: 'Save as XML',
+    },
+    {
+      key: 'sql',
+      label: 'Save as SQL (Insert)',
     }
   ];
 
@@ -235,6 +239,29 @@ function PlaygroundPage() {
     document.body.removeChild(link);
   }
 
+  const downloadAsSQL = ({data}:any) => {
+    const getColumns = (data:any) => {
+      let col0 = Object.keys(data[0])
+      return col0.join()
+    }
+    function getValues(data:any) {
+      let res1 = '';
+      data.forEach((item:any, j:number) => {
+        let value = '("' + Object.values(item).join('","') + '")';
+        res1 += value + (j + 1 == data.length ? ';' : ',');
+      });
+      return res1;
+    }
+    let res_data = `INSERT into TABLE_NAME (${getColumns(data)}) VALUES ${getValues(data)}`;
+    const blob = new Blob([res_data], { type: 'application/sql' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'download.sql';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   const onMenuClick: MenuProps['onClick'] = async (e: any) => {
     let sg = await startGenerating();
     console.log("SGData", sg)
@@ -247,7 +274,10 @@ function PlaygroundPage() {
         downloadAsJSON(sg)
       } else if (e.key == "xml") {
         downloadAsXML(sg)
-      } else if (e.key == 'preview') {
+      } else if (e.key == "sql") {
+        downloadAsSQL(sg)
+      }
+      else if (e.key == 'preview') {
         setPreviewModalOpen({
           modal: true,
           data: sg.data
@@ -422,8 +452,8 @@ function PlaygroundPage() {
               onChange: onPageChange,
               showSizeChanger: false
             }}
-            scroll={{x:true}}
-            style={{minWidth:'100%'}}
+            scroll={{ x: true }}
+            style={{ minWidth: '100%' }}
             dataSource={preViewModalOpen.data}
             columns={Object.keys(preViewModalOpen.data[0]).map((item, j) => {
               return {
