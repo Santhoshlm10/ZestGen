@@ -4,6 +4,7 @@ import "./globals.css";
 import 'antd/lib/style/index';
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
+import theme from "./theme/themeConfig";
 
 
 
@@ -31,7 +32,11 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-zinc-50">
-          <AntdRegistry>{children}</AntdRegistry>
+        <AntdRegistry>
+          <ConfigProvider theme={theme}>
+            {children}
+          </ConfigProvider>
+        </AntdRegistry>
       </body>
     </html>
   );
