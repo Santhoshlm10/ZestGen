@@ -8,6 +8,8 @@ import { getSubmoduleByModule } from "../options/SubModule";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { json2xml } from "xml-js";
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 interface IColumnProps {
   key: number;
@@ -212,8 +214,13 @@ function PlaygroundPage() {
     link.click();
   }
 
-  const downloadAsExcel = (data: any) => {
-
+  const downloadAsExcel = ({data}: any) => {
+ 
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, `download.xlsx`);
+  
   }
 
   const downloadAsXML = (data: any) => {
