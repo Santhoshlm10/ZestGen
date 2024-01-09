@@ -214,13 +214,13 @@ function PlaygroundPage() {
     link.click();
   }
 
-  const downloadAsExcel = ({data}: any) => {
- 
+  const downloadAsExcel = ({ data }: any) => {
+
     const ws = XLSX.utils.json_to_sheet(data);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, `download.xlsx`);
-  
+
   }
 
   const downloadAsXML = (data: any) => {
@@ -246,14 +246,14 @@ function PlaygroundPage() {
     document.body.removeChild(link);
   }
 
-  const downloadAsSQL = ({data}:any) => {
-    const getColumns = (data:any) => {
+  const downloadAsSQL = ({ data }: any) => {
+    const getColumns = (data: any) => {
       let col0 = Object.keys(data[0])
       return col0.join()
     }
-    function getValues(data:any) {
+    function getValues(data: any) {
       let res1 = '';
-      data.forEach((item:any, j:number) => {
+      data.forEach((item: any, j: number) => {
         let value = '("' + Object.values(item).join('","') + '")';
         res1 += value + (j + 1 == data.length ? ';' : ',');
       });
@@ -303,11 +303,7 @@ function PlaygroundPage() {
       {contextHolder}
       <HeaderComponent />
       <div>
-        <center>
-          <p className="text-xl">Welome to </p>
-          <p className="text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r to-violet-800 from-sky-400">Zestgen Playground</p>
-          <p className="text-sm m-10">Click on the Add Column button below to get Started.Then Choose Actions at bottom right to download generated data.</p>
-        </center>
+        <p className="text-sm m-10 text-center">Click on the Add Column button below to get Started.Then Choose Actions at bottom right to download generated data.</p>
       </div>
       <div className="pl-20 pr-20">
         {

@@ -13,7 +13,7 @@ import { SiNextdotjs } from "react-icons/si";
 import { SiAntdesign } from "react-icons/si";
 import { SiTailwindcss } from "react-icons/si";
 import { SiFoodpanda } from "react-icons/si";
-import { Button, Card } from "antd";
+import { Button, Card, Tag } from "antd";
 import { IoIosAdd } from "react-icons/io";
 
 export default function Home() {
@@ -21,13 +21,13 @@ export default function Home() {
     <main>
       <HeaderComponent />
       <div>
-        <div className="p-20">
+        <div className="p-16">
           <p className="text-center mb-4 text-5xl font-bold">
             <span className="text-transparent bg-clip-text bg-gradient-to-r to-violet-800 from-sky-400">
               The Dynamic Data Playground for Creative Minds
             </span>
           </p>
-          <div style={{width:'80%',margin:'0 auto'}}>
+          <div style={{ width: '80%', margin: '0 auto' }}>
             <p className="text-center p-3 text-xl">
               Discover limitless creativity at {"Zestgen's"} virtual playground! Ideal for developers and data enthusiasts, explore randomized values to sculpt and bring datasets to life! 🚀✨
             </p>
@@ -37,7 +37,7 @@ export default function Home() {
             <Link href="/playground">
               <Button
                 type="primary"
-                style={{backgroundColor:'#8764b8',fontSize:'17px',height:'50px',width:'200px'}}
+                style={{ backgroundColor: '#8764b8', fontSize: '17px', height: '50px', width: '200px' }}
               >
                 Visit Playground
               </Button>
@@ -50,27 +50,27 @@ export default function Home() {
                 <SiNextdotjs />
                 <p>Next JS</p>
               </Link>
-                <IoIosAdd className="ml-4"/>
+              <IoIosAdd className="ml-4" />
               <Link href={"https://ant.design/"} target="_blank" className="flex justify-center gap-1 items-center ml-4">
                 <SiAntdesign />
                 <p>Ant Design</p>
               </Link>
-              <IoIosAdd className="ml-4"/>
+              <IoIosAdd className="ml-4" />
               <Link href={"https://tailwindcss.com/"} target="_blank" className="flex justify-center gap-1 items-center ml-4">
                 <SiTailwindcss />
                 <p>Tailwind CSS</p>
               </Link>
-              <IoIosAdd className="ml-4"/>
+              <IoIosAdd className="ml-4" />
               <Link href={"https://fakerjs.dev/"} target="_blank" className="flex justify-center gap-1 items-center ml-4">
                 <SiFoodpanda />
                 <p>FakerJS</p>
               </Link>
             </div>
           </div>
-
         </div>
       </div>
-      <div className="pl-14 pr-14 mb-10 flex justify-center">
+      <p className="text-center text-violet-600 p-5">Export Features</p> 
+      <div className="pl-14 pr-14 mb-10 mt-5 flex justify-center">
         <div className="grid gap-10 grid-cols-3">
           <div>
 
@@ -107,6 +107,7 @@ export default function Home() {
       </div>
       <div className="mt-10 w-auto h-26 bg-gray-200">
         <p className="text-center p-4 text-lg">Unleash randomness, export possibilities<span className="text-xl">🪐</span></p>
+        <p className="text-center text-base">Wubba lubba dub-dub....</p>
       </div>
     </main>
   );

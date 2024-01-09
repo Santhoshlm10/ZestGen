@@ -4,9 +4,11 @@ import { FaGithub } from "react-icons/fa";
 import { GoVersions } from "react-icons/go";
 import Link from "next/link";
 import { Button } from "antd";
+import { usePathname } from "next/navigation";
 
 
 function HeaderComponent() {
+    const pathname = usePathname();
     return (
         <header>
             <div className="p-5 flex items-center justify-between">
@@ -18,8 +20,7 @@ function HeaderComponent() {
                             height={55}
                             width={55}
                         />
-
-                        <span className="text-2xl font-extrabold">Zestgen</span>
+                        <span className="text-2xl font-bold">Zestgen {pathname == "/playground" ?  <span className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r to-violet-800 from-sky-400">Playground</span> : ''}</span>
                     </div>
                 </Link>
                 <div className="flex items-center gap-5">
