@@ -7,7 +7,6 @@ import { BsFiletypeCsv } from "react-icons/bs";
 import { LuFileJson } from "react-icons/lu";
 import { GrMysql } from "react-icons/gr";
 import { TbFileTypeXml } from "react-icons/tb";
-import { CiServer } from "react-icons/ci";
 import HeaderComponent from "./components/header/Header";
 import { SiNextdotjs } from "react-icons/si";
 import { SiAntdesign } from "react-icons/si";
@@ -15,6 +14,7 @@ import { SiTailwindcss } from "react-icons/si";
 import { SiFoodpanda } from "react-icons/si";
 import { Button, Card, Tag } from "antd";
 import { IoIosAdd } from "react-icons/io";
+import { SiYaml } from "react-icons/si";
 
 export default function Home() {
   return (
@@ -69,7 +69,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <p className="text-center text-violet-600 p-5">Export Features</p> 
+      <p className="text-center text-violet-600 p-5 font-semibold">Export Features</p> 
       <div className="pl-14 pr-14 mb-10 mt-5 flex justify-center">
         <div className="grid gap-10 grid-cols-3">
           <div>
@@ -99,15 +99,16 @@ export default function Home() {
             </Card>
           </div>
           <div>
-            <Card title={<span className="flex gap-2 items-center"><CiServer />HTTP</span>} bordered={false} style={{ width: 350 }}>
-              <p className="text-sm">Obtain random values as an HTTP response, allowing seamless integration with web applications. Users can make API requests to your website and receive the generated data in real-time, enabling dynamic applications.</p>
+            <Card title={<span className="flex gap-2 items-center"><SiYaml />YAML</span>} bordered={false} style={{ width: 350 }}>
+              <p className="text-sm">Obtain random values as an YAML file, a human-readable data serialization language that is often used for writing configuration files.YAML supports multiple documents, parsers will recognize each set of dashes as a new one</p>
             </Card>
           </div>
         </div>
       </div>
       <div className="mt-10 w-auto h-26 bg-gray-200">
-        <p className="text-center p-4 text-lg">Unleash randomness, export possibilities<span className="text-xl">🪐</span></p>
-        <p className="text-center text-base">Wubba lubba dub-dub....</p>
+        <p className="text-center p-4 text-lg">&#169;{new Date().getFullYear()}&nbsp;/&nbsp;
+        <Link className="text-lg text-violet-800" href={"https://github.com/Santhoshlm10"} rel="noopener noreferrer" target="_blank">Santhosh Kashyap</Link>
+        </p>
       </div>
     </main>
   );

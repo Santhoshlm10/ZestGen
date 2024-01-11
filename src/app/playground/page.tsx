@@ -9,7 +9,7 @@ import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { json2xml } from "xml-js";
 import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
+import yaml from 'js-yaml';
 
 interface IColumnProps {
   key: number;
@@ -188,6 +188,10 @@ function PlaygroundPage() {
       label: 'Save as XML',
     },
     {
+      key: 'yaml',
+      label: 'Save as YAML',
+    },
+    {
       key: 'sql',
       label: 'Save as SQL (Insert)',
     }
@@ -269,9 +273,19 @@ function PlaygroundPage() {
     document.body.removeChild(link);
   }
 
+  const downloadAsYAML = (data:any) => {
+    const yamlData = yaml.dump(data.data);
+    const blob = new Blob([yamlData], { type: 'application/yaml' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'download.yaml';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   const onMenuClick: MenuProps['onClick'] = async (e: any) => {
     let sg = await startGenerating();
-    console.log("SGData", sg)
     if (sg.success) {
       if (e.key == "csv") {
         downloadAsCSV(sg);
@@ -283,6 +297,8 @@ function PlaygroundPage() {
         downloadAsXML(sg)
       } else if (e.key == "sql") {
         downloadAsSQL(sg)
+      } else if (e.key == "yaml") {
+        downloadAsYAML(sg)
       }
       else if (e.key == 'preview') {
         setPreviewModalOpen({
