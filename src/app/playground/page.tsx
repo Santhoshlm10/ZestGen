@@ -159,7 +159,7 @@ function PlaygroundPage() {
       setIsGenerating(true);
       let k: any = {}
       columnsData.map((item: any) => {
-        k[item.columnName] = "faker" + "." + item["moduleName"] + "." + item["submoduleName"]
+        k[item.columnName] = "faker" + "." + item["moduleName"] + "." + item["submoduleName"] + "()"
       })
       let payloadObj = { data: k, count }
       return await postPayloadData(payloadObj)
@@ -351,7 +351,7 @@ function PlaygroundPage() {
               <div>
                 <Input
                   placeholder="Count" style={{ width: '120px' }}
-                  maxLength={5}
+                  maxLength={6}
                   prefix="Count: "
                   onKeyPress={(event) => {
                     if (!/[0-9]/.test(event.key)) {

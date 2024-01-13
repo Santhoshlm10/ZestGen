@@ -329,13 +329,28 @@ function PlaygroundPageV2() {
                     <div style={{ width: '1px', height: '100%', backgroundColor: "#E6E6E6" }}></div>
                     <div style={{ width: '30%', height: '100%' }}>
                         <div className="m-2 flex flex-col gap-2">
-                            <p>Search Parameters</p>
+                            <p>Select any Parameter</p>
                             <Input placeholder="Search Parameters" prefix={<IoSearchSharp />} />
                         </div>
-                        <div>
-                            <CustomIconRenderer content="He"/> 
-                            <GrUserWorker className='bg-gray-200 p-2 rounded-full text-4xl text-gray-700'/>
-
+                        <div className="m-2 flex flex-col gap-4 h-full scroll">
+                            <div className="flex gap-2 items-center cursor-pointer hover:bg-violet-200 p-2 rounded-lg">
+                                <div>
+                                    <CustomIconRenderer content="He" />
+                                </div>
+                                <div>
+                                    <p className="text-base text-gray-800">Fullname</p>
+                                    <p className="text-sm text-gray-600">Generates random full name of a person</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-2 items-center">
+                                <div>
+                                <GrUserWorker className='bg-gray-200 p-2 rounded-full text-4xl text-gray-700' />
+                                </div>
+                                <div>
+                                    <p className="text-base text-gray-800">Fullname</p>
+                                    <p className="text-sm text-gray-600">Generates random full name of a person</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
