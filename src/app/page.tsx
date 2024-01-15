@@ -34,7 +34,7 @@ export default function Home() {
           </div>
           <br />
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Link href="/playgroundv2">
+            <Link href="/playground">
               <Button
                 type="primary"
                 style={{ backgroundColor: '#8764b8', fontSize: '17px', height: '50px', width: '200px' }}

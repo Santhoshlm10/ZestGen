@@ -6,7 +6,7 @@ interface ICustomIconRendererProps {
 
 function CustomIconRenderer(props: ICustomIconRendererProps) {
   return (
-    <p className='inline-block bg-gray-200 p-2 rounded-full text-base text-gray-700 w-9 h-9'>{props.content}</p>
+    <p className='inline-block bg-gray-200 p-2 rounded-full text-base text-gray-700 w-9 h-9 center-content'>{props.content}</p>
   )
 }
 

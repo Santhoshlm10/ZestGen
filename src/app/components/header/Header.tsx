@@ -20,7 +20,7 @@ function HeaderComponent() {
                             height={55}
                             width={55}
                         />
-                        <span className="text-2xl font-bold">Zestgen {pathname == "/playgroundv2" ?  <span className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r to-violet-800 from-sky-400">Playground</span> : ''}</span>
+                        <span className="text-2xl font-bold">Zestgen {pathname == "/playground" ?  <span className="text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r to-violet-800 from-sky-400">Playground</span> : ''}</span>
                     </div>
                 </Link>
                 <div className="flex items-center gap-5">
