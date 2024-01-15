@@ -14,7 +14,7 @@ import { FaRegClone } from "react-icons/fa";
 
 
 
-export const SelectOptions: any = [
+const SelectOptions: any = [
     {
         parameterName: "Aircraft Type",
         searchQueries: ["airplane", "air", "aircraft type"],
