@@ -10,6 +10,8 @@ import DownloadManager from "../manager/DownloadManager";
 import { postPayloadData } from "../server/APICalls";
 import { FaListUl } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+import { FaRegClone } from "react-icons/fa";
+
 
 
 export const SelectOptions: any = [
@@ -26,7 +28,7 @@ export const SelectOptions: any = [
         searchQueries: ["airplane", "air", "aircraft line"],
         category: "airline",
         subCategory: "airline",
-        description: "Generates a random airline.",
+        description: "Generates a random airline. with the history of the united state",
         icon: <ReactIcons.IoMdAirplane className='bg-gray-200 p-2 rounded-full text-4xl text-gray-700' />
     }
 ]
@@ -198,7 +200,7 @@ function PlaygroundPageV2() {
             <HeaderComponent />
             <div style={{ marginTop: "-15px", borderRadius: "10px", width: "calc(100vw - 40px)", backgroundColor: "white", height: 'calc(100vh - 100px)', margin: '0 auto' }}>
                 <div className="flex gap-2 h-full">
-                    <div style={{ width: '70%', height: '100%', backgroundColor: "white" }}>
+                    <div style={{ width: '70%', height: '100%', backgroundColor: "white", overflowY: 'auto', overflowX: 'hidden' }}>
                         {
                             selectedParameters.length == 0 ?
                                 <div className="flex items-center justify-center mt-52">
@@ -209,7 +211,7 @@ function PlaygroundPageV2() {
                                 </div>
                                 :
                                 <div>
-                                    <div className="flex ml-5 mt-3">
+                                    <div className="flex ml-5 mt-3 sticky">
                                         <div>
                                             <p>Selected Parameters</p>
                                         </div>
@@ -233,6 +235,7 @@ function PlaygroundPageV2() {
                                                 <Dropdown.Button
                                                     type="default"
                                                     loading={false}
+                                                    style={{ padding: '0px', margin: '0px' }}
                                                     menu={{ items }}
                                                     onClick={() => console.log("hello")}
                                                 >
@@ -246,15 +249,21 @@ function PlaygroundPageV2() {
                                         {
                                             selectedParameters.map((item: any, j: any) => {
                                                 return (
-                                                    <div key={j} className="flex gap-2 items-center cursor-pointer bg-gray-50 hover:bg-violet-50 p-2 rounded-lg">
-                                                        <div>
-                                                            {item.icon}
-                                                        </div>
-                                                        <div>
-                                                            <div className="w-full flex items-center justify-between">
-                                                                <p className="text-base text-gray-800">{item.parameterName}</p>
+                                                    <div  key={j} className="bg-gray-50 hover:bg-violet-50 p-2 rounded-lg">
+                                                        <div className="flex gap-2 items-center cursor-pointer">
+                                                            <div>
+                                                                {item.icon}
                                                             </div>
-                                                            <p className="text-sm text-gray-600">{item.description}</p>
+                                                            <div>
+                                                                <div className="w-full flex items-center justify-between ml-2">
+                                                                    <p className="text-base text-gray-800">{item.parameterName}</p>
+                                                                </div>
+                                                                <p className="text-sm text-gray-600 ml-2">{item.description}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex mt-2 ml-9">
+                                                            <Button type="text" icon={<FaRegClone className="text-sm" />}>Clone</Button>
+                                                            <Button type="text" icon={<MdDelete className="text-sm" />}>Delete</Button>
                                                         </div>
                                                     </div>
                                                 )
@@ -272,7 +281,7 @@ function PlaygroundPageV2() {
                         </div>
                         <div className="m-2 flex flex-col gap-2 h-5/6 overflow-y-auto overflow-x-hidden">
                             {
-                                hasSearch(SelectOptions).map((item: any, j: number) => {
+                                SelectOptions.map((item: any, j: number) => {
                                     return (
                                         <div key={j} onClick={() => handleParameterClick(item)}>
                                             <div className="flex gap-2 items-center cursor-pointer hover:bg-violet-50 p-2 rounded-lg">
