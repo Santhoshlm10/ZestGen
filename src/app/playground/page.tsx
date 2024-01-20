@@ -28,7 +28,7 @@ const SelectOptions: any = [
         searchQueries: ["airplane", "air", "aircraft line"],
         category: "airline",
         subCategory: "airline",
-        description: "Generates a random airline. with the history of the united state",
+        description: "Generates a random airline",
         icon: <ReactIcons.IoMdAirplane className='bg-gray-200 p-2 rounded-full text-4xl text-gray-700' />
     }
 ]
@@ -229,13 +229,13 @@ function PlaygroundPageV2() {
                                                     onChange={(ev: any) => {
                                                         setCount(isNaN(parseInt(ev.target.value)) ? null : parseInt(ev.target.value))
                                                     }}
-                                                    style={{ width: '200px' }}
+                                                    style={{ width: '130px' }}
                                                     value={count}
                                                 />
                                                 <Dropdown.Button
                                                     type="default"
                                                     loading={false}
-                                                    style={{ padding: '0px', margin: '0px' }}
+                                                    style={{ width:'170px' }}
                                                     menu={{ items }}
                                                     onClick={() => console.log("hello")}
                                                 >
