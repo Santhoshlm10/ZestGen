@@ -66,7 +66,6 @@ function PlaygroundPageV2() {
 
     // selected parametrs
     const [selectedParameters, setSelectedParameters] = useState<Array<any>>([]);
-    console.log("SelectedParameters", selectedParameters)
     const [form] = Form.useForm();
 
     const handleDeleteColumn = (item: any) => {
@@ -114,11 +113,13 @@ function PlaygroundPageV2() {
         } else {
             setIsGenerating(true);
             let k: any = {}
-            columnsData.map((item: any) => {
-                k[item.columnName] = "faker" + "." + item["moduleName"] + "." + item["submoduleName"]
+            selectedParameters.map((item: any, j:number) => {
+                k[`Column${j}`] = "faker" + "." + item["category"] + "." + item["subCategory"]
             })
             let payloadObj = { data: k, count }
-            return await postPayloadData(payloadObj)
+            let payloadRes = await postPayloadData(payloadObj);
+            setIsGenerating(false);
+            return payloadRes; 
         }
     }
 
@@ -126,6 +127,7 @@ function PlaygroundPageV2() {
         {
             key: 'csv',
             label: 'CSV File',
+            onclick: () => console.log("CSVFile")
         },
         {
             key: 'xlsx',
@@ -234,10 +236,9 @@ function PlaygroundPageV2() {
                                                 />
                                                 <Dropdown.Button
                                                     type="default"
-                                                    loading={false}
+                                                    loading={isGenerating}
                                                     style={{ width:'170px' }}
-                                                    menu={{ items }}
-                                                    onClick={() => console.log("hello")}
+                                                    menu={{ items, onClick: onMenuClick }}
                                                 >
                                                     Download As
                                                 </Dropdown.Button>
