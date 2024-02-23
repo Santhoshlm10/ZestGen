@@ -22,6 +22,7 @@ function prepareGenObject(data:any,fakerInstace:any) {
   var faker = fakerInstace;
   let filObj:any = {}
   let keys = Object.keys(data);
+
   keys.map((item:string) =>{
     filObj[item] = eval(data[item])
   })

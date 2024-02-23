@@ -110,16 +110,17 @@ function PlaygroundPageV2() {
         if (count <= 0) {
             alert('Count must be greater than zero',
             );
+            return { success: false };
         } else {
             setIsGenerating(true);
             let k: any = {}
-            selectedParameters.map((item: any, j:number) => {
-                k[`Column${j}`] = "faker" + "." + item["category"] + "." + item["subCategory"]
+            selectedParameters.map((item: any, j: number) => {
+                k[`Column${j}`] = "faker" + "." + item["category"] + "." + item["subCategory"] + "()"
             })
             let payloadObj = { data: k, count }
             let payloadRes = await postPayloadData(payloadObj);
             setIsGenerating(false);
-            return payloadRes; 
+            return payloadRes;
         }
     }
 
@@ -157,17 +158,17 @@ function PlaygroundPageV2() {
         let sg = await startGenerating();
         if (sg.success) {
             if (e.key == "csv") {
-                DownloadManager.saveAsCSV(sg, 'hello')
-                // } else if (e.key == "xlsx") {
-                //     downloadAsExcel(sg)
-                // } else if (e.key == "json") {
-                //     downloadAsJSON(sg)
-                // } else if (e.key == "xml") {
-                //     downloadAsXML(sg)
-                // } else if (e.key == "sql") {
-                //     downloadAsSQL(sg)
-                // } else if (e.key == "yaml") {
-                //     downloadAsYAML(sg)
+                DownloadManager.saveAsCSV(sg, 'download')
+            } else if (e.key == "xlsx") {
+                DownloadManager.saveAsExcel(sg, 'download')
+            } else if (e.key == "json") {
+                DownloadManager.saveAsJSON(sg, 'download')
+            } else if (e.key == "xml") {
+                DownloadManager.saveAsXML(sg, "download")
+            } else if (e.key == "sql") {
+                DownloadManager.saveAsSQLInsert(sg, "download")
+            } else if (e.key == "yaml") {
+                DownloadManager.saveAsYAML(sg, "download")
             }
             else if (e.key == 'preview') {
                 setPreviewModalOpen({
@@ -237,7 +238,7 @@ function PlaygroundPageV2() {
                                                 <Dropdown.Button
                                                     type="default"
                                                     loading={isGenerating}
-                                                    style={{ width:'170px' }}
+                                                    style={{ width: '170px' }}
                                                     menu={{ items, onClick: onMenuClick }}
                                                 >
                                                     Download As
@@ -250,7 +251,7 @@ function PlaygroundPageV2() {
                                         {
                                             selectedParameters.map((item: any, j: any) => {
                                                 return (
-                                                    <div  key={j} className="bg-gray-50 hover:bg-violet-50 p-2 rounded-lg">
+                                                    <div key={j} className="bg-gray-50 hover:bg-violet-50 p-2 rounded-lg">
                                                         <div className="flex gap-2 items-center cursor-pointer">
                                                             <div>
                                                                 {item.icon}
@@ -291,7 +292,7 @@ function PlaygroundPageV2() {
                                                 </div>
                                                 <div>
                                                     <p className="text-base text-gray-800">{item.parameterName}</p>
-                                                    <p className="text-sm text-gray-600">{item.description}</p>
+                                                    <p className="text-sm text-gray-600" title={item.description}>{item.description}</p>
                                                 </div>
                                             </div>
                                             <hr className="mt-1.5" />
